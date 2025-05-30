@@ -5,7 +5,7 @@
 package com.mycompany.a3.daos;
 
 import com.mycompany.a3.ConexaoSQLite;
-import com.mycompany.a3.Interfaces.TelaInicial;
+
 import com.mycompany.a3.models.Usuario;
 
 import javax.swing.*;
@@ -23,13 +23,12 @@ import java.util.List;
 public class UsuarioDAO {
     
     public boolean Insert(Usuario usuario){
-        String sql = "INSERT INTO usuarios(id, usuario, senha) values (?,?,?)";
+        String sql = "INSERT INTO usuarios(nome, senha) values (?,?)";
         
     try (Connection conn = ConexaoSQLite.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {          
             pstmt.setString(1, usuario.getNome());
-            pstmt.setString(2, usuario.getNome());
-            pstmt.setString(3, usuario.getSenha());
+            pstmt.setString(2, usuario.getSenha());
             
             return pstmt.executeUpdate() > 0;
             

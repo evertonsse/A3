@@ -143,7 +143,9 @@ public class UsuariosTela extends JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+     CadastroUsuario cadastroUsuario = new CadastroUsuario();
+     cadastroUsuario.setVisible(true);
+             
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void preencheTableUsuarios(List<Usuario> usuarios){
