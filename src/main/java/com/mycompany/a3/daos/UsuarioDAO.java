@@ -5,10 +5,8 @@
 package com.mycompany.a3.daos;
 
 import com.mycompany.a3.ConexaoSQLite;
-
+import com.mycompany.a3.Dialogo;
 import com.mycompany.a3.models.Usuario;
-
-import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,43 +19,40 @@ import java.util.List;
  * @author evert
  */
 public class UsuarioDAO {
-    
-    public boolean Insert(Usuario usuario){
+
+    public boolean Insert(Usuario usuario) {
         String sql = "INSERT INTO usuarios(nome, senha) values (?,?)";
-        
-    try (Connection conn = ConexaoSQLite.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql)) {          
+
+        try (Connection conn = ConexaoSQLite.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, usuario.getNome());
             pstmt.setString(2, usuario.getSenha());
-            
+
             return pstmt.executeUpdate() > 0;
-            
+
         } catch (SQLException e) {
-            System.out.println("Erro ao inserir: " + e.getMessage());
+             Dialogo.exibirDialog(e.toString());
             return false;
         }
     }
-    
-    
-    public Usuario Select(int id ){
+
+    public Usuario Select(int id) {
         String sql = "SELECT * FROM usuarios WHERE id = ?";
-        try (Connection conn = ConexaoSQLite.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = ConexaoSQLite.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 return new Usuario(rs.getInt("id"), rs.getString("nome"), rs.getString("senha"));
             }
 
-        } catch (SQLException e ) {
-             System.out.println("Erro ao buscar usuário por ID: " + e.getMessage());
-           return null;
+        } catch (SQLException e) {
+            Dialogo.exibirDialog(e.getMessage());
+            return null;
         }
         return null;
 
     }
 
-    public List<Usuario> SelectAll(){
+    public List<Usuario> SelectAll() {
         String sql = "SELECT * FROM usuarios;";
 
         try (Connection conn = ConexaoSQLite.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -66,42 +61,37 @@ public class UsuarioDAO {
             List<Usuario> usuarios = new ArrayList<>();
             while (rs.next()) {
                 Usuario usuario = new Usuario(rs.getInt("id"), rs.getString("nome"), rs.getString("senha"));
-                System.out.println("ID: " + rs.getInt("id") );
                 usuarios.add(usuario);
-
 
             }
             return usuarios;
         } catch (SQLException e) {
-            System.out.println("Erro ao atualizar: " + e.getMessage());
+            Dialogo.exibirDialog(e.getMessage());
+
         }
         return null;
     }
 
-    public boolean Update(Usuario usuario){
+    public boolean Update(Usuario usuario) {
         String sql = "UPDATE usuarios SET nome = ?, senha = ? WHERE id = ?";
-       try (Connection conn = ConexaoSQLite.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql)){
+        try (Connection conn = ConexaoSQLite.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, usuario.getNome());
             pstmt.setString(2, usuario.getSenha());
             pstmt.setInt(3, usuario.getId());
             return pstmt.executeUpdate() > 0;
         } catch (Exception e) {
-           System.out.println("Erro");
-            return false ;
+            Dialogo.exibirDialog(e.getMessage());
+            return false;
         }
     }
 
     public boolean Delete(int id) {
         String sql = "DELETE FROM usuarios WHERE id = ?";
-
-        try {
-            Connection conn = ConexaoSQLite.getConnection();
-            PreparedStatement pstmt = conn.prepareCall(sql);
+        try (Connection conn = ConexaoSQLite.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             return pstmt.executeUpdate() > 0;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao excluir Usuário" + e.getMessage());
+        } catch (SQLException e) {
+            Dialogo.exibirDialog(e.getMessage());
             return false;
         }
     }

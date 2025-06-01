@@ -4,17 +4,15 @@
  */
 package com.mycompany.a3.Interfaces;
 
+import com.mycompany.a3.Dialogo;
 import com.mycompany.a3.daos.UsuarioDAO;
 import com.mycompany.a3.models.Usuario;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,6 +50,7 @@ public class UsuariosTela extends JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         labelTituloJanela = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
+        btnExcluir = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -96,6 +95,13 @@ public class UsuariosTela extends JPanel {
         labelTituloJanela.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelTituloJanela.setText("Usuários");
 
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,6 +113,8 @@ public class UsuariosTela extends JPanel {
                         .addComponent(jButton3)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnExcluir)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(labelTituloJanela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
@@ -130,7 +138,8 @@ public class UsuariosTela extends JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jButton3)
+                    .addComponent(btnExcluir))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
                 .addContainerGap())
@@ -168,13 +177,10 @@ public class UsuariosTela extends JPanel {
 
     private void jButton2ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         int linhaSelecionada = jTable1.getSelectedRow();
-        System.out.println(linhaSelecionada);
 
         if (linhaSelecionada != -1) {
             Object usuarioObj = jTable1.getValueAt(linhaSelecionada, 0);
-            System.out.println("Obj: " + usuarioObj.toString());
             int idUsuario = Integer.parseInt(usuarioObj.toString());
-            System.out.println("id:" + idUsuario);
             UsuarioDAO usuarioDao = new UsuarioDAO();
             Usuario usuario = new Usuario();
             usuario = usuarioDao.Select(idUsuario);
@@ -195,8 +201,27 @@ public class UsuariosTela extends JPanel {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        int linhaSelecionada = jTable1.getSelectedRow();
+        if (linhaSelecionada != -1 ) {
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            Object usuarioObj = jTable1.getValueAt(linhaSelecionada, 0);
+            int idUsuario = Integer.parseInt(usuarioObj.toString());
+            if(usuarioDAO.Delete(idUsuario)) {
+                Dialogo.exibirDialog("Usuário excluído com sucesso.");
+                UsuarioDAO dao = new UsuarioDAO();
+                List<Usuario> usuarios = dao.SelectAll();
+                preencheTableUsuarios(usuarios);
+                
+            }
+                    
+        }
+             
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;

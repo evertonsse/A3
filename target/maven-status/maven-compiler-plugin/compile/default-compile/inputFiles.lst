@@ -1,8 +1,9 @@
-C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\A3.java
-C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\ConexaoSQLite.java
-C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\daos\UsuarioDAO.java
-C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\Interfaces\CadastroUsuario.java
-C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\Interfaces\Login.java
-C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\Interfaces\TelaInicial.java
-C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\Interfaces\UsuariosTela.java
-C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\models\Usuario.java
+/home/everton/Documentos/Projetos/A3/src/main/java/com/mycompany/a3/A3.java
+/home/everton/Documentos/Projetos/A3/src/main/java/com/mycompany/a3/ConexaoSQLite.java
+/home/everton/Documentos/Projetos/A3/src/main/java/com/mycompany/a3/Dialogo.java
+/home/everton/Documentos/Projetos/A3/src/main/java/com/mycompany/a3/Interfaces/CadastroUsuario.java
+/home/everton/Documentos/Projetos/A3/src/main/java/com/mycompany/a3/Interfaces/Login.java
+/home/everton/Documentos/Projetos/A3/src/main/java/com/mycompany/a3/Interfaces/TelaInicial.java
+/home/everton/Documentos/Projetos/A3/src/main/java/com/mycompany/a3/Interfaces/UsuariosTela.java
+/home/everton/Documentos/Projetos/A3/src/main/java/com/mycompany/a3/daos/UsuarioDAO.java
+/home/everton/Documentos/Projetos/A3/src/main/java/com/mycompany/a3/models/Usuario.java
