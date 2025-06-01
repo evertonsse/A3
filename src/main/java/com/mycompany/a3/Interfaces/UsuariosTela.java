@@ -12,6 +12,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,10 +30,10 @@ public class UsuariosTela extends JPanel {
 
         initComponents();
         UsuarioDAO dao = new UsuarioDAO();
-        List<Usuario> usuarios = new ArrayList<>();
+        List<Usuario> usuarios;
         usuarios = dao.SelectAll();
         preencheTableUsuarios(usuarios);
-        
+
     }
 
     /**
@@ -43,16 +45,15 @@ public class UsuariosTela extends JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new JScrollPane();
-        jTable1 = new JTable();
-        jButton1 = new JButton();
-        jButton2 = new JButton();
-        jButton3 = new JButton();
-        jSeparator1 = new JSeparator();
-        labelTituloJanela = new JLabel();
-        jSeparator2 = new JSeparator();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        labelTituloJanela = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
 
-        jTable1.setModel(new DefaultTableModel(
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -71,91 +72,94 @@ public class UsuariosTela extends JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setMaxWidth(40);
         }
 
-        jButton1.setText("Excluir");
-
         jButton2.setText("Editar");
-        jButton2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
         jButton3.setText("Novo");
-        jButton3.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
 
-        labelTituloJanela.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
-        labelTituloJanela.setHorizontalAlignment(SwingConstants.CENTER);
+        labelTituloJanela.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelTituloJanela.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelTituloJanela.setText("Usuários");
 
-        GroupLayout layout = new GroupLayout(this);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton3)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(labelTituloJanela, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelTituloJanela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jSeparator2)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jSeparator1))
-                            .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 1001, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1001, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator2, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelTituloJanela)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-     CadastroUsuario cadastroUsuario = new CadastroUsuario();
-     cadastroUsuario.setVisible(true);
-             
+        CadastroUsuario cadastroUsuario = new CadastroUsuario();
+        cadastroUsuario.setVisible(true);
+
+        cadastroUsuario.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                UsuarioDAO dao = new UsuarioDAO();
+                List<Usuario> usuarios = dao.SelectAll();
+                preencheTableUsuarios(usuarios);
+            }
+        });
+
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void preencheTableUsuarios(List<Usuario> usuarios){
+    private void preencheTableUsuarios(List<Usuario> usuarios) {
 
-        if (usuarios != null ) {
-
+        if (usuarios != null) {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
-            usuarios.forEach(u->{
-                Object[] linha = {u.getId(), u.getNome() };
+            usuarios.forEach(u -> {
+                Object[] linha = {u.getId(), u.getNome()};
                 model.addRow(linha);
             });
         }
@@ -163,18 +167,42 @@ public class UsuariosTela extends JPanel {
     }
 
     private void jButton2ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        int linhaSelecionada = jTable1.getSelectedRow();
+        System.out.println(linhaSelecionada);
+
+        if (linhaSelecionada != -1) {
+            Object usuarioObj = jTable1.getValueAt(linhaSelecionada, 0);
+            System.out.println("Obj: " + usuarioObj.toString());
+            int idUsuario = Integer.parseInt(usuarioObj.toString());
+            System.out.println("id:" + idUsuario);
+            UsuarioDAO usuarioDao = new UsuarioDAO();
+            Usuario usuario = new Usuario();
+            usuario = usuarioDao.Select(idUsuario);
+
+            if (usuario != null) {
+                CadastroUsuario cadastroUsuario = new CadastroUsuario(usuario);
+                cadastroUsuario.setVisible(true);
+
+                cadastroUsuario.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        UsuarioDAO dao = new UsuarioDAO();
+                        List<Usuario> usuarios = dao.SelectAll();
+                        preencheTableUsuarios(usuarios);
+                    }
+                });
+            }
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton jButton1;
-    private JButton jButton2;
-    private JButton jButton3;
-    private JScrollPane jScrollPane1;
-    private JSeparator jSeparator1;
-    private JSeparator jSeparator2;
-    private JTable jTable1;
-    private JLabel labelTituloJanela;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel labelTituloJanela;
     // End of variables declaration//GEN-END:variables
 }

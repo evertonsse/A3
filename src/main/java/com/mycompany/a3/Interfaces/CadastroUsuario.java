@@ -7,6 +7,7 @@ package com.mycompany.a3.Interfaces;
 import com.mycompany.a3.ConexaoSQLite;
 import com.mycompany.a3.daos.UsuarioDAO;
 import com.mycompany.a3.models.Usuario;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,18 +15,34 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
- *
  * @author everton
  */
 public class CadastroUsuario extends javax.swing.JFrame {
-    
+    private boolean isEdicao;
+    private Usuario usuarioExistente;
+
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CadastroUsuario.class.getName());
 
     /**
      * Creates new form CadastroUsuario
      */
     public CadastroUsuario() {
+        this.isEdicao = false;
         initComponents();
+    }
+
+    public CadastroUsuario(Usuario usuario) {
+        this.isEdicao = true;
+        this.usuarioExistente = usuario;
+        initComponents();
+        
+        
+        txtUsuario.setText(usuarioExistente.getNome());
+        txtPassword.setText(usuarioExistente.getSenha()); 
+        
+        
+
     }
 
     /**
@@ -40,12 +57,13 @@ public class CadastroUsuario extends javax.swing.JFrame {
         txtUsuario = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnConfirmar = new javax.swing.JButton();
         txtPassword = new javax.swing.JPasswordField();
         jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Usuário");
         setAlwaysOnTop(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
@@ -61,10 +79,10 @@ public class CadastroUsuario extends javax.swing.JFrame {
 
         jLabel2.setText("Senha");
 
-        jButton1.setText("Ok");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnConfirmar.setText("Ok");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnConfirmarActionPerformed(evt);
             }
         });
 
@@ -84,71 +102,91 @@ public class CadastroUsuario extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(221, 221, 221)
                                 .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)))
+                                .addComponent(btnConfirmar))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(8, 8, 8)
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(10, 10, 10))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
-       this.dispose();
-    }//GEN-LAST:event_txtUsuarioActionPerformed
+    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        this.dispose();
+    }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       String nomeUsuario = txtUsuario.getText();
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        String nomeUsuario = txtUsuario.getText();
         char[] senhaChar = txtPassword.getPassword();
         String senha = new String(senhaChar);
-        String sql = "SELECT * FROM usuarios WHERE nome = ? ";
-        
-        try (Connection conn = ConexaoSQLite.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, nomeUsuario);
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-               JOptionPane.showMessageDialog(rootPane, "Usuário já cadastrado com esse Nome.");
-                txtUsuario.setFocusable(rootPaneCheckingEnabled);
-                
+
+        if (this.isEdicao) {
+            this.usuarioExistente.setNome(nomeUsuario);
+            this.usuarioExistente.setSenha(senha);
+
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            if (usuarioDAO.Update(this.usuarioExistente)){
+               JOptionPane.showMessageDialog(rootPane, "Usuário atualada com sucesso!");
+               this.dispose();
             } else {
-                
-                UsuarioDAO usuarioDAO = new UsuarioDAO(); 
-                Usuario usuario = new Usuario(nomeUsuario, senha);
-                if (usuarioDAO.Insert(usuario)) { 
-                    JOptionPane.showMessageDialog(rootPane, "Usuário cadastrado com sucesso");
-                    this.dispose();
-                }
+                JOptionPane.showMessageDialog(rootPane, "Não foi possível alterar o cadastro do Usuário");
             }
-        } catch (SQLException e) {
-            
+
+
+        } else {
+            String sql = "SELECT * FROM usuarios WHERE nome = ? ";
+            try (Connection conn = ConexaoSQLite.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+                pstmt.setString(1, nomeUsuario);
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    JOptionPane.showMessageDialog(rootPane, "Usuário já cadastrado com esse Nome.");
+                    txtUsuario.setFocusable(rootPaneCheckingEnabled);
+
+                } else {
+                    UsuarioDAO usuarioDAO = new UsuarioDAO();
+                    Usuario usuario = new Usuario(nomeUsuario, senha);
+                    if (usuarioDAO.Insert(usuario)) {
+                        JOptionPane.showMessageDialog(rootPane, "Usuário cadastrado com sucesso");
+                        this.dispose();
+                    }
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, "Erro ao cadastrar usuário: " + e.getMessage());
+
+            }
+
         }
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+
+
+    }//GEN-LAST:event_btnConfirmarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,7 +195,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -176,7 +214,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

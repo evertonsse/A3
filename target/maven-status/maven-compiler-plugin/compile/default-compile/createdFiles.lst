@@ -3,7 +3,9 @@ com\mycompany\a3\Interfaces\Login.class
 com\mycompany\a3\A3$1.class
 com\mycompany\a3\Interfaces\Login$3.class
 com\mycompany\a3\Interfaces\TelaInicial.class
+com\mycompany\a3\Interfaces\UsuariosTela$4.class
 com\mycompany\a3\Interfaces\Login$2.class
+com\mycompany\a3\Interfaces\UsuariosTela$5.class
 com\mycompany\a3\Interfaces\TelaInicial$1.class
 com\mycompany\a3\ConexaoSQLite.class
 com\mycompany\a3\Interfaces\TelaInicial$4.class

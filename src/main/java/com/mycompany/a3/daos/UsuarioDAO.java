@@ -41,9 +41,8 @@ public class UsuarioDAO {
     
     public Usuario Select(int id ){
         String sql = "SELECT * FROM usuarios WHERE id = ?";
-        try{
-            Connection conn = ConexaoSQLite.getConnection();
-            PreparedStatement pstmt = conn.prepareCall(sql);
+        try (Connection conn = ConexaoSQLite.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
             if(rs.next()){
@@ -81,15 +80,14 @@ public class UsuarioDAO {
 
     public boolean Update(Usuario usuario){
         String sql = "UPDATE usuarios SET nome = ?, senha = ? WHERE id = ?";
-        try {
-            Connection conn = ConexaoSQLite.getConnection();
-            PreparedStatement pstmt = conn.prepareCall(sql);
+       try (Connection conn = ConexaoSQLite.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setString(1, usuario.getNome());
             pstmt.setString(2, usuario.getSenha());
             pstmt.setInt(3, usuario.getId());
             return pstmt.executeUpdate() > 0;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,  "Erro ao atualziar Usuário" + e.getMessage());
+           System.out.println("Erro");
             return false ;
         }
     }
