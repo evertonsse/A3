@@ -130,6 +130,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        content.removeAll();
         UsuariosTela usuarioTela = new UsuariosTela();   
         usuarioTela.setSize(content.getWidth(), content.getHeight()); 
                  
@@ -139,7 +140,10 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+       content.removeAll();
+        ProdutosTela produtosTela = new ProdutosTela();
+        produtosTela.setSize(content.getWidth(), content.getHeight()); 
+        content.add(produtosTela);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
