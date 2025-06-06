@@ -1,7 +1,7 @@
 # Controle de Estoque 📦
 
 Este projeto foi desenvolvido como **trabalho acadêmico** para a faculdade, utilizando **Java**, **Swing** e **SQLite**. Ele gerencia estoque por **lotes**, classificando produtos como **perecíveis** ou **não perecíveis**, seguindo estas regras:
-- **FIFO** para perecíveis, retirando itens do lote mais antigo baseado na validade.
+- Similar a **FIFO** para perecíveis, retirando itens do lote mais antigo baseado na validade.
 - **LIFO** para não perecíveis.
 
 ## 📌 Funcionalidades
