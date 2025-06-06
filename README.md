@@ -2,7 +2,7 @@
 
 Projeto em **Java** com **Swing** para gerenciar estoque por **lotes**, classificando produtos como **perecíveis** ou **não perecíveis**. A movimentação segue:
 - **FIFO** para perecíveis, retirando itens do lote mais antigo baseado na validade.
-- **FIFO** para não perecíveis.
+- **LIFO** para não perecíveis.
 
 ## 📌 Funcionalidades
 - Cadastro de produtos e lotes.
