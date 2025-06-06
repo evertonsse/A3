@@ -4,6 +4,15 @@
  */
 package com.mycompany.a3.Interfaces;
 
+import com.mycompany.a3.daos.ProdutoDAO;
+import com.mycompany.a3.daos.UsuarioDAO;
+import com.mycompany.a3.models.Produto;
+import com.mycompany.a3.models.Usuario;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author everton
@@ -15,6 +24,10 @@ public class ProdutosTela extends javax.swing.JPanel {
      */
     public ProdutosTela() {
         initComponents();
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        List<Produto> produtos = produtoDAO.SelectAll();
+        preencheTableProdutos(produtos);
+
     }
 
     /**
@@ -69,17 +82,25 @@ public class ProdutosTela extends javax.swing.JPanel {
                 "Id", "Tipo", "Descrição", "Valor", "Estoque"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tableProdutos.setColumnSelectionAllowed(true);
+        tableProdutos.setShowGrid(true);
+        tableProdutos.setShowHorizontalLines(true);
+        tableProdutos.setShowVerticalLines(true);
         jScrollPane1.setViewportView(tableProdutos);
-        tableProdutos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (tableProdutos.getColumnModel().getColumnCount() > 0) {
             tableProdutos.getColumnModel().getColumn(0).setPreferredWidth(50);
             tableProdutos.getColumnModel().getColumn(0).setMaxWidth(50);
@@ -127,8 +148,41 @@ public class ProdutosTela extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void preencheTableProdutos(List<Produto> produtos) {
+
+        if (produtos != null) {
+            DefaultTableModel model = (DefaultTableModel) tableProdutos.getModel();
+            model.setRowCount(0);
+            produtos.forEach(p -> {
+                String tipo; 
+                if (p.getTipo() == 0) {
+                    tipo = "Não perecível"; 
+                   
+                } else {
+                     tipo = "Perecível"; 
+                }
+                
+                Object[] linha = {p.getId(), tipo, p.getDescricao(), p.getValor(), p.getEstoque()};
+                model.addRow(linha);
+            });
+        }
+    }
+
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        CadastroProdutoTela cadastroProdutoTela = new CadastroProdutoTela();
+        cadastroProdutoTela.setVisible(true);
+
+        cadastroProdutoTela.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                ProdutoDAO produtoDAO = new ProdutoDAO();
+                List<Produto> produtos = produtoDAO.SelectAll();
+                preencheTableProdutos(produtos);
+            }
+        });
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

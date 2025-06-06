@@ -1,23 +1,35 @@
-
 package com.mycompany.a3.models;
 
 /**
  *
  * @author everton
  */
-public abstract class Produtos {
-    private int id ;
-    private String descricao ;
-    private double valor; 
+public class Produto {
+
+    private int id;
+    private String descricao;
+    private double valor;
     private int tipo; // 1 - Perecivel; 2 - Não perecível
     private double estoque;
 
-    public Produtos(int id, String descricao, double valor, int tipo, double estoque) {
+    public Produto(int id, String descricao, double valor, int tipo, double estoque) {
         this.id = id;
         this.descricao = descricao;
         this.valor = valor;
         this.tipo = tipo;
         this.estoque = estoque;
+    }
+    
+     public Produto( String descricao, double valor, int tipo) {
+        this.descricao = descricao;
+        this.valor = valor;
+        this.tipo = tipo;
+        
+    }
+
+    public boolean inserirProduto(Produto produto) {
+
+        return true;
     }
 
     public int getId() {
@@ -58,9 +70,6 @@ public abstract class Produtos {
 
     public void setEstoque(double estoque) {
         this.estoque = estoque;
-    }   
-    
-    public abstract boolean retirarProdutos(double quantidade);
-    public abstract boolean inserirProdutos(double quantidade);
-    
+    }
+
 }

@@ -8,20 +8,15 @@ package com.mycompany.a3.models;
  *
  * @author everton
  */
-public class Perecivel extends Produtos{
+public class Perecivel extends Produto{
 
-    public Perecivel(int id, String descricao, double valor, int tipo, double estoque) {
-        super(id, descricao, valor, tipo, estoque);
+    public Perecivel(int id, String descricao, double valor,  double estoque) {
+        super(id, descricao, valor,1, estoque);
     } 
 
-    @Override
+  
     public boolean retirarProdutos(double quantidade) {
         throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public boolean inserirProdutos(double quantidade) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    }  
     
 }

@@ -3,6 +3,7 @@ C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\Conex
 C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\daos\ProdutoDAO.java
 C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\daos\UsuarioDAO.java
 C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\Dialogo.java
+C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\Interfaces\CadastroProdutoTela.java
 C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\Interfaces\CadastroUsuario.java
 C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\Interfaces\Login.java
 C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\Interfaces\ProdutosTela.java
@@ -10,5 +11,5 @@ C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\Inter
 C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\Interfaces\UsuariosTela.java
 C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\models\NaoPerecivel.java
 C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\models\Perecivel.java
-C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\models\Produtos.java
+C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\models\Produto.java
 C:\Users\evert\OneDrive\Documents\GitHub\A3\src\main\java\com\mycompany\a3\models\Usuario.java
