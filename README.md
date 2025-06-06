@@ -8,7 +8,7 @@ Projeto em **Java** com **Swing** para gerenciar estoque por **lotes**, classifi
 - Cadastro de produtos e lotes.
 - Gestão de estoque com retirada baseada em validade (perecíveis).
 - Registro de movimentações por lote.
-- Interface gráfica intuitiva.
+- Interface gráfica.
 
 ## 🛠️ Tecnologias Utilizadas
 - **Java** (backend)
