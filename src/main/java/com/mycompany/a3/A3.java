@@ -5,7 +5,7 @@ package com.mycompany.a3;
 
 import com.formdev.flatlaf.*;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-import com.mycompany.a3.Interfaces.Login;
+import com.mycompany.a3.Interfaces.LoginTela;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -21,7 +21,7 @@ public class A3 {
             });
         } catch (UnsupportedLookAndFeelException e) {
         }
-        Login login = new Login();
+        LoginTela login = new LoginTela();
         login.setVisible(true);
     }
 }

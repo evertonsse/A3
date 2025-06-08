@@ -17,30 +17,29 @@ import javax.swing.JOptionPane;
 /**
  * @author everton
  */
-public class CadastroUsuario extends javax.swing.JFrame {
+public class CadastroUsuarioTela extends javax.swing.JFrame {
     private boolean isEdicao;
     private Usuario usuarioExistente;
 
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CadastroUsuario.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CadastroUsuarioTela.class.getName());
 
     /**
      * Creates new form CadastroUsuario
      */
-    public CadastroUsuario() {
+    public CadastroUsuarioTela() {
         this.isEdicao = false;
         initComponents();
     }
 
-    public CadastroUsuario(Usuario usuario) {
+    public CadastroUsuarioTela(Usuario usuario) {
         this.isEdicao = true;
         this.usuarioExistente = usuario;
         initComponents();
         
         
         txtUsuario.setText(usuarioExistente.getNome());
-        txtPassword.setText(usuarioExistente.getSenha()); 
-        
+        txtPassword.setText(usuarioExistente.getSenha());        
         
 
     }
@@ -210,7 +209,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new CadastroUsuario().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new CadastroUsuarioTela().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
