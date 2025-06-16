@@ -4,6 +4,7 @@
  */
 package com.mycompany.a3.Interfaces;
 
+import com.mycompany.a3.Dialogo;
 import com.mycompany.a3.daos.ProdutoDAO;
 import com.mycompany.a3.daos.UsuarioDAO;
 import com.mycompany.a3.models.Produto;
@@ -22,6 +23,7 @@ public class ProdutosTela extends javax.swing.JPanel {
         preencheTableProdutos(produtos);
 
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -70,7 +72,7 @@ public class ProdutosTela extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
@@ -106,9 +108,9 @@ public class ProdutosTela extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton3)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -139,14 +141,14 @@ public class ProdutosTela extends javax.swing.JPanel {
             DefaultTableModel model = (DefaultTableModel) tableProdutos.getModel();
             model.setRowCount(0);
             produtos.forEach(p -> {
-                String tipo; 
+                String tipo;
                 if (p.getTipo() == 0) {
-                    tipo = "Não perecível"; 
-                   
+                    tipo = "Não perecível";
+
                 } else {
-                     tipo = "Perecível"; 
+                    tipo = "Perecível";
                 }
-                
+
                 Object[] linha = {p.getId(), tipo, p.getDescricao(), p.getValor(), p.getEstoque()};
                 model.addRow(linha);
             });
@@ -166,16 +168,41 @@ public class ProdutosTela extends javax.swing.JPanel {
                 preencheTableProdutos(produtos);
             }
         });
-
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        int linhaSelecionada = tableProdutos.getSelectedRow();
+        if (linhaSelecionada != -1) {
+            ProdutoDAO produtoDAO = new ProdutoDAO();
+            Object produtoObj = tableProdutos.getValueAt(linhaSelecionada, 0);
+            int idProduto = Integer.parseInt(produtoObj.toString());
+            Produto produto = produtoDAO.Select(idProduto);
+            CadastroProdutoTela cadastroProdutoTela = new CadastroProdutoTela(produto);
+            cadastroProdutoTela.setVisible(true);
+            cadastroProdutoTela.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    ProdutoDAO produtoDAO = new ProdutoDAO();
+                    List<Produto> produtos = produtoDAO.SelectAll();
+                    preencheTableProdutos(produtos);
+                }
+            });
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        int linhaSelecionada = tableProdutos.getSelectedRow();
+        if (linhaSelecionada != -1) {
+            ProdutoDAO produtoDAO = new ProdutoDAO();
+            Object produtoObject = tableProdutos.getValueAt(linhaSelecionada, 0);
+            int idProduto = Integer.parseInt(produtoObject.toString());
+            if (produtoDAO.Delete(idProduto)) {
+                Dialogo.exibirDialog("Produto excluído com sucesso.");
+                List<Produto> produtos = produtoDAO.SelectAll();
+                preencheTableProdutos(produtos);
+
+            }
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
 

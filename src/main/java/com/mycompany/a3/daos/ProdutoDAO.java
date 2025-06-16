@@ -37,7 +37,7 @@ public class ProdutoDAO {
     }
 
     public Produto Select(int id) {
-        String sql = "SELECT * FROM produto WHERE id = ?";
+        String sql = "SELECT * FROM produtos WHERE id = ?";
         try (Connection conn = ConexaoSQLite.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
@@ -62,7 +62,6 @@ public class ProdutoDAO {
             while (rs.next()) {
                 Produto produto = new Produto(rs.getInt("id"), rs.getString("descricao"), rs.getDouble("valor"), rs.getInt("tipo"), rs.getDouble("estoque"));
                 produtos.add(produto);
-
             }
             return produtos;
         } catch (SQLException e) {
@@ -77,8 +76,8 @@ public class ProdutoDAO {
             pstmt.setString(1, produto.getDescricao());
             pstmt.setDouble(2, produto.getValor());
             pstmt.setInt(3, produto.getTipo());
-            pstmt.setDouble(3, produto.getEstoque());
-            pstmt.setInt(3, produto.getId());
+            pstmt.setDouble(4, produto.getEstoque());
+            pstmt.setInt(5, produto.getId());
             return pstmt.executeUpdate() > 0;
         } catch (Exception e) {
             Dialogo.exibirDialog(e.getMessage());

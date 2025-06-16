@@ -14,10 +14,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author evert
- */
 public class UsuarioDAO {
 
     public boolean Insert(Usuario usuario) {

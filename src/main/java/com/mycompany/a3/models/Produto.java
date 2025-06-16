@@ -6,11 +6,11 @@ package com.mycompany.a3.models;
  */
 public class Produto {
 
-    private int id;
-    private String descricao;
-    private double valor;
-    private int tipo; // 1 - Perecivel; 2 - Não perecível
-    private double estoque;
+    protected int id;
+    protected String descricao;
+    protected double valor;
+    protected int tipo; // 1 - Perecivel; 2 - Não perecível
+    protected double estoque;
 
     public Produto(int id, String descricao, double valor, int tipo, double estoque) {
         this.id = id;
@@ -23,12 +23,11 @@ public class Produto {
      public Produto( String descricao, double valor, int tipo) {
         this.descricao = descricao;
         this.valor = valor;
-        this.tipo = tipo;
-        
+        this.tipo = tipo;        
     }
+    
 
     public boolean inserirProduto(Produto produto) {
-
         return true;
     }
 
@@ -72,4 +71,10 @@ public class Produto {
         this.estoque = estoque;
     }
 
+    
+    @Override
+    public String toString() {
+        return descricao;
+    }
+    
 }
