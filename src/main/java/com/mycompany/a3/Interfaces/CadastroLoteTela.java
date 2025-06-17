@@ -4,6 +4,7 @@
  */
 package com.mycompany.a3.Interfaces;
 
+import com.mycompany.a3.DataParse;
 import com.mycompany.a3.Dialogo;
 import com.mycompany.a3.daos.LotesDAO;
 import com.mycompany.a3.daos.ProdutoDAO;
@@ -14,10 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.text.MaskFormatter;
 
-/**
- *
- * @author evert
- */
 public class CadastroLoteTela extends javax.swing.JFrame {
 
     private Lote loteExistente = null;
@@ -28,54 +25,7 @@ public class CadastroLoteTela extends javax.swing.JFrame {
         initComponents();
         preencherComboProdutos();
         preencherComboTipos();
-        preencherComboBloqueado();
-    }
 
-    public CadastroLoteTela(Lote lote) {
-
-        this.loteExistente = lote;
-
-        initComponents();
-        preencherComboProdutos();
-        preencherComboTipos();
-        preencherComboBloqueado();
-
-        if (lote instanceof LotePerecivel lotePerecivel) {
-            comboTipos.setSelectedIndex(lotePerecivel.getTipo());
-            comboBloquado.setSelectedIndex(lotePerecivel.getBloqueado());
-
-            ProdutoDAO produtoDAO = new ProdutoDAO();
-            Produto produto = produtoDAO.Select(lotePerecivel.getProduto());
-            comboProdutos.setSelectedItem(produto);
-            edtIdentificador.setText(lotePerecivel.getIdentificador());
-            if (lotePerecivel.getValidade() != null) {
-                edtValidade.setText(lotePerecivel.getValidade().toString());
-            }
-
-            double estoque = lotePerecivel.getEstoque();
-            edtEstoque.setText(Double.toString(estoque));
-
-            if (lotePerecivel.getDataBloqueio() != null) {
-                edtDataBloqueio.setText(lotePerecivel.getDataBloqueio().toString());
-            }
-
-            edtMotivo.setText(lotePerecivel.getMotivoBloqueio());
-        } else {
-            comboTipos.setSelectedItem(lote.getTipo());
-
-            ProdutoDAO produtoDAO = new ProdutoDAO();
-            Produto produto = produtoDAO.Select(lote.getProduto());
-            comboProdutos.setSelectedItem(produto);
-            edtIdentificador.setText(lote.getIdentificador());
-            double estoque = lote.getEstoque();
-            edtEstoque.setText(Double.toString(estoque));
-            comboTipos.setSelectedIndex(lote.getTipo());
-
-            comboTipos.setEnabled(false);
-            comboProdutos.setEnabled(false);
-            edtIdentificador.setEditable(false);
-            edtEstoque.setEditable(false);
-        }
     }
 
     private void preencherComboProdutos() {
@@ -95,12 +45,6 @@ public class CadastroLoteTela extends javax.swing.JFrame {
         comboTipos.addItem("Perecível");
     }
 
-    private void preencherComboBloqueado() {
-        comboBloquado.removeAllItems();
-        comboBloquado.addItem("Não");
-        comboBloquado.addItem("Sim");
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -118,14 +62,8 @@ public class CadastroLoteTela extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         comboTipos = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        edtMotivo = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        comboBloquado = new javax.swing.JComboBox<>();
-        jLabel9 = new javax.swing.JLabel();
         edtEstoque = new javax.swing.JFormattedTextField();
         edtValidade = new javax.swing.JFormattedTextField();
-        edtDataBloqueio = new javax.swing.JFormattedTextField();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -175,29 +113,11 @@ public class CadastroLoteTela extends javax.swing.JFrame {
 
         jLabel5.setText("Tipo");
 
-        jLabel7.setText("Data Bloqueio");
-
-        edtMotivo.setEditable(false);
-
-        jLabel8.setText("Motivo");
-
-        comboBloquado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboBloquado.setEnabled(false);
-
-        jLabel9.setText("Bloqueado");
-
         edtEstoque.setEditable(false);
         edtEstoque.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.##"))));
 
         try {
             edtValidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        edtDataBloqueio.setEditable(false);
-        try {
-            edtDataBloqueio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -216,23 +136,13 @@ public class CadastroLoteTela extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addGap(0, 650, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(edtValidade)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(edtValidade)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(edtEstoque))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(comboTipos, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(jLabel8)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(jLabel4)
+                            .addComponent(edtEstoque))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(comboTipos, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(comboProdutos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
@@ -244,15 +154,7 @@ public class CadastroLoteTela extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel1)
                                 .addComponent(jLabel5)
-                                .addComponent(edtIdentificador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(edtDataBloqueio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(edtMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(comboBloquado, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(edtIdentificador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -278,20 +180,10 @@ public class CadastroLoteTela extends javax.swing.JFrame {
                     .addComponent(edtEstoque)
                     .addComponent(edtValidade))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboBloquado, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtDataBloqueio, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(15, 15, 15))
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -299,21 +191,34 @@ public class CadastroLoteTela extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (this.isEdicao == false) {
-            Object selecionado = comboProdutos.getSelectedItem();
-            int produtoId = 0;
-            if (selecionado instanceof Produto produto) {
-                comboTipos.setSelectedIndex(produto.getTipo());
-                produtoId = produto.getId();
-            }
 
+        Object selecionado = comboProdutos.getSelectedItem();
+        int produtoId = 0;
+        if (selecionado instanceof Produto produto) {
+            produtoId = produto.getId();
+        }
+
+        if (comboTipos.getSelectedIndex() == 0) {
             Lote lote = new Lote(edtIdentificador.getText(), produtoId, 0, comboTipos.getSelectedIndex());
             LotesDAO lotesDAO = new LotesDAO();
             if (lotesDAO.insert(lote)) {
                 Dialogo.exibirDialog("Lote inserido com sucesso.");
                 this.dispose();
             }
+        } else {
+            try {
+                LotePerecivel lotePerecivel = new LotePerecivel(edtIdentificador.getText(), produtoId, 0, DataParse.parseDateformat(edtValidade.getText()), comboTipos.getSelectedIndex());
+                LotesDAO lotesDAO = new LotesDAO();
+                if (lotesDAO.insert(lotePerecivel)) {
+                    Dialogo.exibirDialog("Lote inserido com sucesso.");
+                    this.dispose();
+                }
+
+            } catch (Exception e) {
+            }
+
         }
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -360,13 +265,10 @@ public class CadastroLoteTela extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> comboBloquado;
     private javax.swing.JComboBox<Object> comboProdutos;
     private javax.swing.JComboBox<String> comboTipos;
-    private javax.swing.JFormattedTextField edtDataBloqueio;
     private javax.swing.JFormattedTextField edtEstoque;
     private javax.swing.JTextField edtIdentificador;
-    private javax.swing.JTextField edtMotivo;
     private javax.swing.JFormattedTextField edtValidade;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -377,9 +279,6 @@ public class CadastroLoteTela extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

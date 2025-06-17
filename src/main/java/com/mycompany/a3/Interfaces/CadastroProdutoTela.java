@@ -189,10 +189,10 @@ public class CadastroProdutoTela extends javax.swing.JFrame {
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
 
-        if (isEdicao) {
+        if (isEdicao == false ) {
             Produto produto = new Produto(edtDescricao.getText(), Double.parseDouble(edtValor.getText()), comboTipos.getSelectedIndex());
             ProdutoDAO produtoDAO = new ProdutoDAO();
-            System.out.println("Aqui");
+            
             
             if (produtoDAO.Insert(produto)) {
                 Dialogo.exibirDialog("Produto cadastrado com sucesso.");

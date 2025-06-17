@@ -128,7 +128,11 @@ public class TelaInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+       content.removeAll();
+        MovimentacoesTela movimentacoesTela = new MovimentacoesTela();   
+        movimentacoesTela.setSize(content.getWidth(), content.getHeight()); 
+                 
+        content.add(movimentacoesTela);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

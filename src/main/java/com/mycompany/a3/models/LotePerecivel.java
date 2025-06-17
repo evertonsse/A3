@@ -4,7 +4,7 @@
  */
 package com.mycompany.a3.models;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *
@@ -24,6 +24,12 @@ public class LotePerecivel extends Lote {
         this.bloqueado = bloqueado; 
         this.dataBloqueio = dataBloqueio;
         this.motivoBloqueio = motivoBloqueio;
+    }
+    
+      public LotePerecivel( String identificador, int produto, double estoque, Date validade, int tipo) {
+        super(identificador, produto, estoque,  tipo);
+        this.validade = validade; 
+
     }
 
     public Date getValidade() {

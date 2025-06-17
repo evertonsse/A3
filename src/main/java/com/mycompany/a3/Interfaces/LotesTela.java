@@ -5,7 +5,6 @@
 package com.mycompany.a3.Interfaces;
 
 import com.mycompany.a3.daos.LotesDAO;
-import com.mycompany.a3.daos.LotesPereciveisDAO;
 import com.mycompany.a3.daos.ProdutoDAO;
 import com.mycompany.a3.models.Lote;
 import com.mycompany.a3.models.LotePerecivel;
@@ -15,18 +14,14 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author evert
- */
 public class LotesTela extends javax.swing.JPanel {
 
     public LotesTela() {
         initComponents();
         LotesDAO lotesDAO = new LotesDAO();
+        lotesDAO.marcarLotesInativos();
         List<Lote> lotes = lotesDAO.selectAll();
         preencheTableLotes(lotes);
-
     }
 
     private void preencheTableLotes(List<Lote> lotes) {
@@ -44,18 +39,20 @@ public class LotesTela extends javax.swing.JPanel {
                     } else {
                         bloqueado = "Sim";
                     }
+
                     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                     String dataBloqueioFormatada = "";
-                    if (lotePerecivel.getDataBloqueio() != null) {
+                    if (lotePerecivel.getDataBloqueio() != null && !lotePerecivel.getDataBloqueio().equals("") && bloqueado.equals("Sim")) {
+                        formato.setLenient(false);
                         dataBloqueioFormatada = formato.format(lotePerecivel.getDataBloqueio());
                     }
 
                     String dataValidadeFormatada = "";
-                    if (lotePerecivel.getValidade() != null) {
+                    if (lotePerecivel.getValidade() != null && !lotePerecivel.getDataBloqueio().equals("")) {
                         dataValidadeFormatada = formato.format(lotePerecivel.getValidade());
                     }
 
-                    Object[] linha = {l.getId(), l.getIdentificador(), l.getProduto(), l.getEstoque(), "Perecível", dataValidadeFormatada, bloqueado, dataBloqueioFormatada};
+                    Object[] linha = {l.getId(), l.getIdentificador(), l.getProduto(), l.getEstoque(), "Perecível", dataValidadeFormatada, bloqueado, dataBloqueioFormatada, ((LotePerecivel) l).getMotivoBloqueio()};
                     model.addRow(linha);
 
                 } else {
@@ -78,8 +75,6 @@ public class LotesTela extends javax.swing.JPanel {
 
         labelTituloJanela = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        btnExcluir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableLotes = new javax.swing.JTable();
 
@@ -94,36 +89,22 @@ public class LotesTela extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("Editar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        btnExcluir.setText("Excluir");
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
-            }
-        });
-
         tableLotes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Identificador", "Produto", "Estoque", "Tipo", "Validade", "Bloqueado", "Data do Bloqueio"
+                "Id", "Identificador", "Produto", "Estoque", "Tipo", "Validade", "Bloqueado", "Data do Bloqueio", "Motivo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -161,13 +142,9 @@ public class LotesTela extends javax.swing.JPanel {
                     .addComponent(labelTituloJanela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jButton3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnExcluir)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 854, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,10 +152,7 @@ public class LotesTela extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(labelTituloJanela)
                 .addGap(3, 3, 3)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2)
-                    .addComponent(btnExcluir))
+                .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
                 .addContainerGap())
@@ -200,37 +174,8 @@ public class LotesTela extends javax.swing.JPanel {
         ;
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int linha = tableLotes.getSelectedRow();
-        if (linha >= 0) {
-            LotesDAO lotesDAO = new LotesDAO();
-            Object loteObj = tableLotes.getValueAt(linha, 0);
-            int idLote = Integer.parseInt(loteObj.toString());
-
-            CadastroLoteTela cadastroLoteTela = new CadastroLoteTela(lotesDAO.select(idLote));
-            cadastroLoteTela.setVisible(true);
-
-            cadastroLoteTela.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosed(WindowEvent e) {
-                    LotesDAO lotesDAO = new LotesDAO();
-                    List<Lote> lotes = lotesDAO.selectAll();
-                    preencheTableLotes(lotes);
-                }
-            });
-        }
-
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-
-
-    }//GEN-LAST:event_btnExcluirActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelTituloJanela;

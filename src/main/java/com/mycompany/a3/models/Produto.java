@@ -11,6 +11,7 @@ public class Produto {
     protected double valor;
     protected int tipo; // 1 - Perecivel; 2 - Não perecível
     protected double estoque;
+  
 
     public Produto(int id, String descricao, double valor, int tipo, double estoque) {
         this.id = id;
